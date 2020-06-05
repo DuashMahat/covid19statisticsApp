@@ -1,5 +1,5 @@
 # covid19statisticsApp
-An app to check daily statistics such as "Country" ,  "New Confirmed cases " , "Total Confirmed cases" ,  "New Deaths",  "Total Deaths" ,  "New Recovered" , "Total Recovered" etc. 
+
 ![Screen Shot 2020-06-05 at 6 10 52 PM](https://user-images.githubusercontent.com/25472553/83929197-2b155380-a758-11ea-85e5-bd915a90cb31.png)
 ![Screen Shot 2020-06-05 at 6 09 04 PM](https://user-images.githubusercontent.com/25472553/83929200-2ea8da80-a758-11ea-883b-4834eb3a8276.png)
 ![Screen Shot 2020-06-05 at 6 09 14 PM](https://user-images.githubusercontent.com/25472553/83929204-310b3480-a758-11ea-9bf4-6b3444693dee.png)
