@@ -10,39 +10,51 @@ import UIKit
 
 class MainViewController: UIViewController {
         @IBOutlet weak var tableview : UITableView!
+        let searchcontroller = UISearchController(searchResultsController: nil);
         var countrizs = [Country]()
+        var filteredcountries = [Country]()
         var newtorkhanler = Networking()
         override func viewDidLoad() {
         super.viewDidLoad()
         tableview.delegate = self
         tableview.dataSource = self
         navigationItem.title = "Countries"
+        searchcontroller.searchResultsUpdater = self
+        navigationItem.searchController = searchcontroller
+        searchcontroller.searchBar.placeholder = "Enter Country"
+        searchcontroller.obscuresBackgroundDuringPresentation = false
+        definesPresentationContext = true
         response()
     }
             
-            func response () {
-                newtorkhanler.response(url: UrlPathSingleTon.urlsingleton.shared()) { (countried : (Countries)) in
-                    self.countrizs = countried.Countries
-                    DispatchQueue.main.async {
+    func response () {
+       newtorkhanler.response(url: UrlPathSingleTon.urlsingleton.shared()) { (countried : (Countries)) in
+            self.countrizs = countried.Countries
+            DispatchQueue.main.async {
                         self.tableview.reloadData()
                     }
-                }
-            }
+        }
+    }
 
 }
 
 extension MainViewController : UITableViewDataSource  {
             func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-                return countrizs.count
+                var countries : [Country] = []
+                countries = (isfiltered == true ) ? filteredcountries : countrizs
+                print(countries.count)
+                return countries.count
             }
             func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CountriesViewCell" , for: indexPath) as! CountriesViewCell
-                cell.countryname.text = countrizs[indexPath.row].Country
-                cell.countryimage.image = UIImage(named: countrizs[indexPath.row].CountryCode.lowercased())
+                var countries : [Country] = []
+                countries = (isfiltered == true ) ? filteredcountries : countrizs
+                print(indexPath.row)
+                cell.countryname.text = countries[indexPath.row].Country
+                cell.countryimage.image = UIImage(named: countries[indexPath.row].CountryCode.lowercased())
                 cell.countryimage.beautifty()
                 cell.countryname.beautifyII()
                 cell.backgroundColor = (indexPath.row % 2 == 0 ) ? .systemRed : .systemGreen
-                
                 return cell
             }
 }
@@ -50,18 +62,21 @@ extension MainViewController : UITableViewDataSource  {
 extension MainViewController : UITableViewDelegate {
             func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
                 tableView.deselectRow(at: indexPath, animated: true)
+                print("The path selected =============  \(indexPath.row)")
                 let storyBd = UIStoryboard.init(name: "Main", bundle: nil)
                 guard let detailVc = storyBd.instantiateViewController(identifier: "DetailsViewController") as? DetailsViewController else {return}
                 var image = UIImage(named: countrizs[indexPath.row].CountryCode.lowercased())
-                detailVc.populatelabels(newc: countrizs[indexPath.row].NewConfirmed, totalc: countrizs[indexPath.row].TotalConfirmed, newd:countrizs[indexPath.row].NewDeaths, totald: countrizs[indexPath.row].TotalDeaths, totalr: countrizs[indexPath.row].TotalRecovered)
-                detailVc.newconf = countrizs[indexPath.row].NewConfirmed
-                detailVc.newdeaths = countrizs[indexPath.row].NewDeaths
-                detailVc.totalconf = countrizs[indexPath.row].TotalConfirmed
-                detailVc.totaldeaths = countrizs[indexPath.row].TotalDeaths
-                detailVc.totalrec = countrizs[indexPath.row].TotalRecovered
-                detailVc.navigationController?.navigationItem.title = countrizs[indexPath.row].Country
+                var countries : [Country] = []
+                countries = (isfiltered == true ) ? filteredcountries : countrizs
+                detailVc.populatelabels(newc: countries[indexPath.row].NewConfirmed, totalc: countries[indexPath.row].TotalConfirmed, newd:countries[indexPath.row].NewDeaths, totald: countries[indexPath.row].TotalDeaths, totalr: countries[indexPath.row].TotalRecovered)
+                detailVc.newconf = countries[indexPath.row].NewConfirmed
+                detailVc.newdeaths = countries[indexPath.row].NewDeaths
+                detailVc.totalconf = countries[indexPath.row].TotalConfirmed
+                detailVc.totaldeaths = countries[indexPath.row].TotalDeaths
+                detailVc.totalrec = countries[indexPath.row].TotalRecovered
+                detailVc.navigationController?.navigationItem.title = countries[indexPath.row].Country
                 detailVc.image = image
-                detailVc.countryname =  countrizs[indexPath.row].Country
+                detailVc.countryname =  countries[indexPath.row].Country
                 navigationController?.pushViewController(detailVc, animated: true)
                 
             }
@@ -72,6 +87,32 @@ extension MainViewController : UITableViewDelegate {
                 return height
             }
 }
+
+extension MainViewController {
+    func filteredCountries (for searchtext: String ) {
+        filteredcountries = countrizs.filter { country in
+            return country.Country.lowercased().contains(searchtext.lowercased())
+        }
+        tableview.reloadData()
+    }
+}
+
+extension MainViewController : UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filteredCountries(for: searchBar.text!)
+    }
+}
+
+extension MainViewController {
+       var isfiltered : Bool {
+           return searchcontroller.isActive  && !isfilteredEmpty
+       }
+       var isfilteredEmpty : Bool {
+           return searchcontroller.searchBar.text?.isEmpty ?? true
+       }
+}
+
 
 
 

@@ -66,6 +66,8 @@ class DetailsViewController: UIViewController {
     func imageviewdeats () {
         countryimage.image = image
         countryimage.contentMode = .scaleAspectFill
+        countryimage.layer.borderWidth = 1
+        countryimage.layer.borderColor = UIColor.white.cgColor
     }
 }
 
