@@ -14,17 +14,10 @@ class MainViewController: UIViewController {
         var countrizs = [Country]()
         var filteredcountries = [Country]()
         var newtorkhanler = Networking()
-        override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
-        tableview.delegate = self
-        tableview.dataSource = self
-        navigationItem.title = "Countries"
-        searchcontroller.searchResultsUpdater = self
-        navigationItem.searchController = searchcontroller
-        searchcontroller.searchBar.placeholder = "Enter Country"
-        searchcontroller.obscuresBackgroundDuringPresentation = false
-        definesPresentationContext = true
         response()
+        forViewDidLoad()
     }
             
     func response () {
@@ -111,6 +104,19 @@ extension MainViewController {
        var isfilteredEmpty : Bool {
            return searchcontroller.searchBar.text?.isEmpty ?? true
        }
+}
+
+extension MainViewController {
+    func forViewDidLoad() {
+        tableview.delegate = self
+        tableview.dataSource = self
+        navigationItem.title = "Countries"
+        searchcontroller.searchResultsUpdater = self
+        navigationItem.searchController = searchcontroller
+        searchcontroller.searchBar.placeholder = "Enter Country"
+        searchcontroller.obscuresBackgroundDuringPresentation = false
+        definesPresentationContext = true
+    }
 }
 
 
