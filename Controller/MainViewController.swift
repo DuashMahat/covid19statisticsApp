@@ -22,10 +22,10 @@ class MainViewController: UIViewController {
             
     func response () {
        newtorkhanler.response(url: UrlPathSingleTon.urlsingleton.shared()) { (countried : (Countries)) in
-            self.countrizs = countried.Countries
-            DispatchQueue.main.async {
-                        self.tableview.reloadData()
-                    }
+        self.countrizs = countried.Countries
+        DispatchQueue.main.async {
+            self.tableview.reloadData()
+        }
         }
     }
 
@@ -58,9 +58,9 @@ extension MainViewController : UITableViewDelegate {
                 print("The path selected =============  \(indexPath.row)")
                 let storyBd = UIStoryboard.init(name: "Main", bundle: nil)
                 guard let detailVc = storyBd.instantiateViewController(identifier: "DetailsViewController") as? DetailsViewController else {return}
-                var image = UIImage(named: countrizs[indexPath.row].CountryCode.lowercased())
                 var countries : [Country] = []
                 countries = (isfiltered == true ) ? filteredcountries : countrizs
+                let image = UIImage(named: countries[indexPath.row].CountryCode.lowercased())
                 detailVc.populatelabels(newc: countries[indexPath.row].NewConfirmed, totalc: countries[indexPath.row].TotalConfirmed, newd:countries[indexPath.row].NewDeaths, totald: countries[indexPath.row].TotalDeaths, totalr: countries[indexPath.row].TotalRecovered)
                 detailVc.newconf = countries[indexPath.row].NewConfirmed
                 detailVc.newdeaths = countries[indexPath.row].NewDeaths
