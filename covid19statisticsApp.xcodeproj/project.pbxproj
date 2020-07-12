@@ -51,9 +51,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EE33C04124BBD3AF005514A5 /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				EE358F2B24885754007BFA56 /* Main.storyboard */,
+				EE358F302488575C007BFA56 /* LaunchScreen.storyboard */,
+			);
+			path = StoryBoards;
+			sourceTree = "<group>";
+		};
 		EE358F1924885754007BFA56 = {
 			isa = PBXGroup;
 			children = (
+				EE33C04124BBD3AF005514A5 /* StoryBoards */,
 				EE47137A249274B700F166EF /* ViewModel */,
 				EE358F3D2488578F007BFA56 /* Extensions  */,
 				EE358F3C24885781007BFA56 /* Constants */,
@@ -78,9 +88,7 @@
 			children = (
 				EE358F2524885754007BFA56 /* AppDelegate.swift */,
 				EE358F2724885754007BFA56 /* SceneDelegate.swift */,
-				EE358F2B24885754007BFA56 /* Main.storyboard */,
 				EE358F2E2488575C007BFA56 /* Assets.xcassets */,
-				EE358F302488575C007BFA56 /* LaunchScreen.storyboard */,
 				EE358F332488575C007BFA56 /* Info.plist */,
 			);
 			path = covid19statisticsApp;
@@ -361,7 +369,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RQAE768Z9N;
+				DEVELOPMENT_TEAM = GG9M3SY3Q6;
 				INFOPLIST_FILE = covid19statisticsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -379,7 +387,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RQAE768Z9N;
+				DEVELOPMENT_TEAM = GG9M3SY3Q6;
 				INFOPLIST_FILE = covid19statisticsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
