@@ -78,7 +78,7 @@
                     <navigationItem key="navigationItem" id="uFe-lp-IdI"/>
                     <connections>
                         <outlet property="tableview" destination="YdI-Lg-KFB" id="Yyl-j8-oZP"/>
-                        <segue destination="wbz-Hw-EuZ" kind="show" id="QVH-cH-2N6"/>
+                        <segue destination="wbz-Hw-EuZ" kind="show" identifier="toDets" id="QVH-cH-2N6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
