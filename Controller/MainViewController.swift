@@ -10,10 +10,8 @@ import UIKit
 
 class MainViewController: UIViewController {
         @IBOutlet weak var tableview : UITableView!
-        let searchcontroller = UISearchController(searchResultsController: nil);
-        var countrizs = [Country]()
-        var filteredcountries = [Country]()
-        var newtorkhanler = Networking()
+        let searchcontroller = UISearchController(searchResultsController: nil)
+        var viewModel = NetViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         response()
@@ -21,11 +19,10 @@ class MainViewController: UIViewController {
     }
             
     func response () {
-       newtorkhanler.response(url: UrlPathSingleTon.urlsingleton.shared()) { (countried : (Countries)) in
-        self.countrizs = countried.Countries
-        DispatchQueue.main.async {
-            self.tableview.reloadData()
-        }
+        viewModel.viewModelResponse(url: UrlPathSingleTon.urlsingleton.shared()) { [weak self ](_) in
+            DispatchQueue.main.async {
+                self?.tableview.reloadData()
+            }
         }
     }
 
@@ -33,15 +30,12 @@ class MainViewController: UIViewController {
 
 extension MainViewController : UITableViewDataSource  {
             func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-                var countries : [Country] = []
-                countries = (isfiltered == true ) ? filteredcountries : countrizs
-                print(countries.count)
+                let countries : [Country] = (isfiltered == true ) ? viewModel.filtercountries : viewModel.countriesdecoded
                 return countries.count
             }
             func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CountriesViewCell" , for: indexPath) as! CountriesViewCell
-                var countries : [Country] = []
-                countries = (isfiltered == true ) ? filteredcountries : countrizs
+                let countries = (isfiltered == true ) ? viewModel.filtercountries : viewModel.countriesdecoded
                 print(indexPath.row)
                 cell.countryname.text = countries[indexPath.row].Country
                 cell.countryimage.image = UIImage(named: countries[indexPath.row].CountryCode.lowercased())
@@ -58,8 +52,7 @@ extension MainViewController : UITableViewDelegate {
                 print("The path selected =============  \(indexPath.row)")
                 let storyBd = UIStoryboard.init(name: "Main", bundle: nil)
                 guard let detailVc = storyBd.instantiateViewController(identifier: "DetailsViewController") as? DetailsViewController else {return}
-                var countries : [Country] = []
-                countries = (isfiltered == true ) ? filteredcountries : countrizs
+                let countries = (isfiltered == true ) ? viewModel.filtercountries : viewModel.countriesdecoded
                 let image = UIImage(named: countries[indexPath.row].CountryCode.lowercased())
                 detailVc.populatelabels(newc: countries[indexPath.row].NewConfirmed, totalc: countries[indexPath.row].TotalConfirmed, newd:countries[indexPath.row].NewDeaths, totald: countries[indexPath.row].TotalDeaths, totalr: countries[indexPath.row].TotalRecovered)
                 detailVc.newconf = countries[indexPath.row].NewConfirmed
@@ -83,7 +76,7 @@ extension MainViewController : UITableViewDelegate {
 
 extension MainViewController {
     func filteredCountries (for searchtext: String ) {
-        filteredcountries = countrizs.filter { country in
+        viewModel.filtercountries = viewModel.countriesdecoded.filter { country in
             return country.Country.lowercased().contains(searchtext.lowercased())
         }
         tableview.reloadData()
@@ -114,6 +107,8 @@ extension MainViewController {
         searchcontroller.searchResultsUpdater = self
         navigationItem.searchController = searchcontroller
         searchcontroller.searchBar.placeholder = "Enter Country"
+//        searchcontroller.searchBar.layer.borderWidth = 1
+//        searchcontroller.searchBar.layer.borderColor = UIColor.systemBlue.cgColor
         searchcontroller.obscuresBackgroundDuringPresentation = false
         definesPresentationContext = true
     }

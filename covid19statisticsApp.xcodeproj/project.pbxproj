@@ -18,6 +18,7 @@
 		EE358F2D24885754007BFA56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE358F2B24885754007BFA56 /* Main.storyboard */; };
 		EE358F2F2488575C007BFA56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE358F2E2488575C007BFA56 /* Assets.xcassets */; };
 		EE358F322488575C007BFA56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE358F302488575C007BFA56 /* LaunchScreen.storyboard */; };
+		EE47137C249274E800F166EF /* NetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE47137B249274E700F166EF /* NetViewModel.swift */; };
 		EE946BA0248AD29E0082B7AB /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE946B9F248AD29E0082B7AB /* DetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		EE358F2E2488575C007BFA56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE358F312488575C007BFA56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EE358F332488575C007BFA56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE47137B249274E700F166EF /* NetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetViewModel.swift; sourceTree = "<group>"; };
 		EE946B9F248AD29E0082B7AB /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -52,6 +54,7 @@
 		EE358F1924885754007BFA56 = {
 			isa = PBXGroup;
 			children = (
+				EE47137A249274B700F166EF /* ViewModel */,
 				EE358F3D2488578F007BFA56 /* Extensions  */,
 				EE358F3C24885781007BFA56 /* Constants */,
 				EE358F3B24885778007BFA56 /* Controller */,
@@ -125,6 +128,14 @@
 			path = "Extensions ";
 			sourceTree = "<group>";
 		};
+		EE47137A249274B700F166EF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EE47137B249274E700F166EF /* NetViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -196,6 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE47137C249274E800F166EF /* NetViewModel.swift in Sources */,
 				EE3148E024885E4B005FFACC /* uiviews.extensions.swift in Sources */,
 				EE3148E424885FD5005FFACC /* SingletonClass.swift in Sources */,
 				EE946BA0248AD29E0082B7AB /* DetailsViewController.swift in Sources */,
